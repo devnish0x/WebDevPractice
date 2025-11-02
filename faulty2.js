@@ -3,7 +3,7 @@ let b = prompt("Enter second number:")
 let c = prompt("Enter operator (+, -, *, /):")
  
 let r = Math.random()
-console.log(r)
+console.log(r)  
 
 let x =
 {
