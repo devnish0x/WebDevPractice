@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: rgb(20, 255, 20);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 90vh;
+      }
+      .container {
+        background-color: black;
+        border: 5px solid grey;
+        border-radius: 10px;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        height: 400px;
+        width: 600px;
+      }
+      h2 {
+        color: aliceblue;
+        display: flex;
+        justify-content: center;
+        padding: 2px;
+        margin: 15px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      .text {
+        color: aliceblue;
+        padding-top: 10px;
+        display: flex;
+        flex-direction: column;
+
+        font-size: 20px;
+        font-family: "Courier New", Courier, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" script onpa>
+      <h2>HECKER TERMINAL</h2>
+      <div class="text"></div>
+    </div>
+  </body>
+
+  <script>
+    // let mess = document.querySelector(".text")
+
+    // function wait() {
+    //     r = Math.floor((Math.random()*5)+1)
+    //     console.log(r);
+    //     return new Promise((resolve) => {
+    //         setTimeout(resolve,r*1000)
+
+    //     })
+    // }
+
+    // async function a() {
+
+    //     mess.innerHTML = "Initializing Hacking ..."
+    //     await wait()
+    //     mess.innerHTML = "Reading Your Files..."
+    //     await wait()
+    //     mess.innerHTML = "Password Files Detected..."
+    //     await wait()
+    //     mess.innerHTML = "Sending all password and personal files to the server..."
+    //     await wait()
+    //     mess.innerHTML = "Cleaning up..."
+    //     await wait()
+    //     mess.innerHTML = "Done , you have been hecked 😂"
+    // }
+
+    let lists = [
+      "Initializing Hacking",
+      "Reading Your Files",
+      "Password Files Detected",
+      "Sending all password and personal files to the server",
+      "Cleaning up",
+    ];
+
+    async function additem(item) {
+      await wait();
+      let div = document.querySelector(".text");
+      let nnew = document.createElement("div");
+      nnew.textContent = item;
+      div.appendChild(nnew);
+    }
+
+    const wait = () => {
+      r = 1 + Math.floor(6 * Math.random());
+      console.log(r);
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve();
+        }, r * 1000);
+      });
+    };
+
+    async function main() {
+      let t = setInterval(() => {
+        let ele = document.body.querySelector(".text").lastElementChild;
+
+        if (ele.innerHTML.endsWith("...")) {
+          ele.innerHTML = ele.innerHTML.slice(0, ele.innerHTML.length - 3);
+        } else {
+          ele.innerHTML = ele.innerHTML + ".";
+        }
+      }, 200);
+
+      for (const item of lists) {
+        await additem(item);
+      }
+
+      await wait();
+      clearInterval(t);
+    }
+    main();
+  </script>
+</html>
