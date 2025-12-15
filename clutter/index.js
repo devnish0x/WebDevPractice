@@ -10,17 +10,17 @@ console.log(files)
 for (const file of files) {
     const e = path.extname(file)
     const ext = e.slice(1)
-    console.log(ext)
+    
 
     if (ext !="json" && ext != "js"){
         if(fss.existsSync(path.join(dirr,ext))){
             fs.rename(path.join(dirr,file),path.join(dirr,ext,file))
-            console.log("yes")
+            
         }
         else{
             fs.mkdir(path.join(dirr,ext))
             fs.rename(path.join(dirr,file),path.join(dirr,ext,file))
-            console.log("no")
+            
         }
 
     }
