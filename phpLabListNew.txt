@@ -1,0 +1,851 @@
+<html > 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> <title>Contact Form</title> 
+</head> 
+<body> <?php if($_SERVER["REQUEST_METHOD"]=="POST"){ 
+ 	echo "<h2>Form Submission Result</h2>"; 
+ 	$name=$_POST["name"]; 
+ 	$email=$_POST["email"];  	$msg=$_POST["msg"]; 
+ 	echo "<strong>Name :</strong> $name <br><br>  	<strong>Email :</strong> $email <br><br> 
+ 	<strong>Message :</strong> $msg <br><br>"; 
+}else{ 
+ 	echo "<h2>Contact Form</h2>  	<form action='' method='post'> 
+ 	Name : <br /> <input type='text' name='name' required='required'/><br /><br /> 
+ 	Email : <br /> <input type='text' name='email' required='required'/><br /><br /> 
+ 	Message : <br /> <textarea name='msg' rows='4' required='required'/></textarea> <br /><br />  	<input type='submit' value='Submit'/> 
+ 	</form>"; 
+} 
+?></body> </html> Output: 
+
+ 
+<html > 
+<head><title>Armstrong</title></head> 
+<body> 
+<h2>Armstrong</h2><br /> <form action="" method="post"> Enter a number : 
+<input type="text" name="num" required="required"  />  
+<input type="submit" value="Check" /> 
+</form> <?php function isarm($num){ 
+ 	$org=$num; 
+ 	$sum=0; 
+ 	$len=strlen($num);  	while($num>0){ 
+ 	 	$d=$num%10; 
+ 	 	$sum+=pow($d,$len); 
+ 	 	$num=(int)($num/10); 
+ 	} 
+ 	return $org===$sum; 
+} 
+if($_SERVER["REQUEST_METHOD"]=="POST"){  	$num=$_POST['num'];  	if($num>0){ 
+ 	 	$num=(int)$num; 
+ 	 	if($num!=0 && isarm($num)){  	 	 	echo "$num is an Armstrong number<br>"; 
+ 	 	 	echo "Number in the range from 1 to $num<br>"; 
+ 	 	 	for($i=1;$i<=$num;$i++){  	 	 	 	if(isarm($i)){  	 	 	 	 	echo "$i "; 
+ 	 	} 	} 	} 
+ 	 	else{ 
+ 	 	 	echo "$num is not an Armstrong number"; 
+ 	} 	} 
+ 	else{ 
+ 	 	echo "Please enter a positive integer"; 
+} 	} 
+?> 
+</body> 
+</html> 	 
+index.php 
+<?php 
+session_start(); if(isset($_SESSION['name'])){ 
+ 	header("Location:index.php"); 
+ 	exit(); 
+} 
+if($_SERVER['REQUEST_METHOD']==='POST'){ 
+ 	$name=$_POST['name'];  	$pass=$_POST['pass'];  	if($name==='demo' && $pass==='pass'){ 
+ 	 	$_SESSION['name']=$name; 
+ 	 	header("Location:welcome.php"); 
+ 	 	exit(); 
+ 	}else{ 
+ 	 	$error="Invalid username or password"; 
+} 	}?> 
+<html >< <body> 
+<h2>Login</h2> 
+<form method="post"action=""> 
+Username :  <input type="text" name="name"required  /><br /><br /> 
+Password : <input type="password"name="pass"required  /><br /><br /> 
+<input type="submit" value="Login" /></form> 
+<?php  
+if(isset($error)){ 
+ 	echo "<p style='color:red;'>$error</p>";     
+}?> 
+</body> </html> welcome.php 
+<?php 
+session_start(); if(!isset($_SESSION['name'])){ 
+ 	header("Location:index.php"); 
+ 	exit(); 
+}else{ 
+ 	$name=$_SESSION['name']; 
+ 	echo "<h2>Welcome $name</h2>"; 
+ 	echo "<p> This is a secure area. You're logged in.</p>";  	echo "<a href='index.php'>Logout</a>"; 
+ 	session_destroy(); 
+}?> 
+ 	 
+<html><head><title>Simple calculator</title> 
+<?php 
+$result=''; 
+if($_SERVER['REQUEST_METHOD']==='POST'){ 
+ 	$num1=$_POST['num1']; 
+ 	$num2=$_POST['num2'];  	$op=$_POST['op']; 
+ 	if(!is_numeric($num1)||!is_numeric($num2)){ 
+ 	 	$result='Please enter valid numbers'; 
+ 	}else{ 
+ 	 	$num1=(int)$num1;  	 	$num2=(int)$num2;  	 	switch($op){ 
+ 
+ 
+ 
+case '+': 
+ 
+ 
+ 
+ 	$result=$num1+$num2; 
+ 
+ 
+ 
+ 	break;  case '-': 
+ 
+ 
+ 
+ 	$result=$num1-$num2; 
+ 
+ 
+ 
+ 	break; 
+ 
+ 
+    
+ case '*': 
+ 
+ 
+ 
+ 	$result=$num1*$num2; 
+ 
+ 
+ 
+ 	break; 
+ 
+ 
+   
+  case '/': 
+ 
+ 
+ 
+if($num2==0){ 
+ 
+ 
+ 
+ 	$result='Error : Division by zero'; 
+ 
+ 
+ 
+}else{ 
+ 
+ 
+ 
+ 	$result=$num1/$num2; 
+} 
+} 
+} 
+} 
+?> 	     
+</head><body> 
+<h2>Simple calculator</h2> 
+<form method="post" action=""> 
+Number1 : <input type="text" name="num1" required/> 
+Operator: <select name="op" required> 
+<option value="+">+</option> 
+<option value="-">-</option> 
+<option value="*">*</option> 
+<option value="/">/</option></select> 
+Number2 : <input type="text" name="num2" required /> 
+<input type="submit" value="Calculate"/>  
+</form><br> <?php  
+if($result!==''){ 
+ 	echo "Result : $result"; 
+} 
+?></body></html> 
+<html > 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>Age Calculator</title> 
+</head> 
+<body> 
+<h2> Age calculator </h2> <form method="post" action=" "> Enter Your BirthDate :   
+<input type="date" id="bd" name="bd" /> 
+<input type="submit" name="submit" value="Calculate Age" /> 
+</form> <?php 
+if(isset($_POST['submit'])) 
+{ 
+ 	$bd=$_POST[bd]; 
+ 	$bt=strtotime($bd); 
+ 	$ct=time(); 
+ 	$age=$ct-$bt; 
+ 	$years=floor($age/(365*24*60*60)); 
+ 	$months=floor(($age-$years*365*24*60*60)/(30*24*60*60)); 
+ 	$days=floor(($age-$years*365*24*60*60-$months*30*24*60*60)/(24*60*60));  	echo "<p> Your age is: $years years, $months months and $days days </p>"; 
+ 	 
+} 
+?> 
+ 
+</body> 
+</html> 
+ 
+
+A6
+ 	 
+<html > 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> <title>Dictionary</title> 
+</head> 
+<body> 
+<h2>Dictionary</h2> 
+<form method="post" action=" "> 
+Enter a word:<input type="text" name="Search_word" /> 
+<br /> <br /> 
+<input type="submit" name="search" value="Search" /> 
+</form> <?php 
+$dictionary=array("apple"=>"a fruit with a red or green skinned and a white interior", 
+"computer"=>"a electronical device", 
+"book"=>"a group of pages which will used to write", 
+"mouse"=>"a electronical device or a name of the animal", 
+"pen"=>"a thing which is used to write", 
+"lipstick"=>"a cosmetics", 
+"eraser"=>"used to correct the mistakes made by pencil", 
+"car"=>"road vehicle with 4 wheels", 
+"comb"=>"used to comb hairs", "pencil"=>"used to write"); 
+if($_SERVER["REQUEST_METHOD"]=="POST") 
+{ 
+ 	$Search_word=strtolower($_POST["Search_word"]);  	if(array_key_exists($Search_word,$dictionary)) 
+ 	{ 
+ 	 	echo "<p><b>Meaning of '$Search_word':</b>".$dictionary[$Search_word]."</p>"; 
+ 	} 
+ 	else 
+ 	{ 
+ 	 	echo "<p> <b> Word not Found </b> </p>"; 
+ 	} 
+} 
+?> 
+</body> 
+</html> 
+
+
+A7
+	 
+<html><head><title>String Manipulation</title></head> 
+<body><h2>String Manipulation</h2> 
+<form method="post" action=""> 
+Enter string : <input type="text" name="st" /><br /><br /> 
+<input type="submit" name="glength" value="Get Length" /> 
+<input type="submit" name="reverse" value="Reverse" /> 
+<input type="submit" name="upper" value="Uppercase" /> 
+<input type="submit" name="lower" value="Lowercase" /> 
+<input type="submit" name="replace" value="Replace" /> 
+<input type="submit" name="checkp" value="Check Palindrome" /> 
+<input type="submit" name="shuffle" value="Shuffle" /> 
+<input type="submit" name="wordc" value="Word count" /> 
+</form> <?php 
+if($_SERVER['REQUEST_METHOD']==='POST'){ 
+ 	$st=$_POST["st"];  	if(isset($_POST['glength'])){  	 	echo "Length of string : ".strlen($st); 
+ 	} 
+ 	if(isset($_POST['reverse'])){  	 	echo "Reversed string : ".strrev($st); 
+ 	} 
+ 	if(isset($_POST['upper'])){ 
+ 	 	echo "Uppercase string : ".strtoupper($st); 
+ 	} 
+ 	if(isset($_POST['lower'])){ 
+ 	 	echo "Lowercase string : ".strtolower($st);  
+ 	} 
+ 	if(isset($_POST['replace'])){ 
+ 	 	echo "String with a replaced x : ".str_replace('a','x',$st); 
+ 	} 
+ 	if(isset($_POST['checkp'])){  	 	if($st===strrev($st)){ 
+ 	 	 	echo "String is palindrome"; 
+ 	 	}else{ 
+ 	 	 	echo "String is not palindrome"; 
+ 	} 	} 
+ 	if(isset($_POST['shuffle'])){ 
+ 	 	echo "Shuffled string : ".str_shuffle($st); 
+ 	} 
+ 	if(isset($_POST['wordc'])){ 
+ 	 	echo "Word count of string : ".str_word_count($st); 
+} 	} 
+?> 
+</body></html> 
+
+A8
+ 
+<html ><head><title>Word Frequency Analyzer</title></head><body> 
+<h2>Word Frequency Analyzer</h2> <form method="post" action=""> 
+Enter text :<br /><textarea name="text" rows="4" cols="50" required="required"></textarea><br /><br /> <input type="submit" value="Submit"  /> 
+</form> <?php 
+function sortWordCount($array,$order){ 
+ 	if($order == 'asc'){ 
+ 	 	ksort($array); 
+ 	}else{ 
+ 	 	krsort($array); 
+ 	} 
+ 	return $array; 
+} 
+if($_SERVER["REQUEST_METHOD"] == "POST"){ 
+ 	$text = strtolower($_POST['text']); 
+ 	$words = str_word_count($text,1);  	$wordc = array_count_values($words);  	arsort($wordc);  	echo"<h3>Word Frequencies:</h3>";  	foreach($wordc as $word=>$count){ 
+ 	 	echo"$word: $count <br>"; 
+ 	} 
+ 	reset($wordc);$most = key($wordc); 
+ echo "<h3>Most Used Word : $most used ({$wordc[$most]}) times <br><br>";  reset($wordc); asort($wordc);  $least = key($wordc); 
+ 	echo "Least Used Word : $least used ({$wordc[$least]}) times <br></h3>"; 	  	echo"<form method='post' action=''> 
+ 	<input type = 'hidden' name='text' value='$text'> 
+ 	<input type = 'hidden' name='sorted' value='asc'>  	<input type = 'submit' value='Sort Ascending'></form>"; 
+ 	echo"<form method='post' action=''> 
+ 	<input type='hidden' name='text' value='$text'> 
+ 	<input type='hidden' name='sorted' value = 'desc'>  	<input type='submit' value='Sort Descending'></form>";  	if(isset($_POST['sorted'])){ 
+ 	 	$sorted = $_POST['sorted']; 
+ 	 	$wordc = sortWordCount($wordc,$sorted);  	 	echo"<h3>Sorted Word Counts($sorted):</h3>";  	 	foreach($wordc as $word => $count){  	 	 	echo"$word: $count<br>"; 
+} 	} 	} 
+?> 
+</body></html> 
+
+B1 
+index.php 
+<html><head><title>Student Registration Form</title></head> 
+<body> 
+<h2>Student Registration Form</h2> 
+<form method="post"> 
+First Name : <input type="text" name="fname" required="required" /><br /><br /> 
+Last Name : <input type="text" name="lname" required="required" /><br /><br /> 
+Address  : <br /><textarea  required="required" name="address" ></textarea><br /><br /> 
+Email : <input type="email" name="email" required="required" /><br /><br /> 
+Mobile : <input type="text" name="mobile" required="required" maxlength="10"/><br /><br /> 
+City : <input type="text" name="city" required="required" /><br /> <br /> 
+State : <input type="text" name="state" required="required" /><br /><br /> 
+Gender : <br /><input type="radio" name="gender" value="Male" required="required" />Male<br /> 
+<input type="radio" name="gender" value="Female" required="required" />Female<br /><br /> 
+Hobbies : <br /><input type="checkbox" name="hobbies[]" value = "Reading" />Reading<br /> 
+<input type="checkbox" name="hobbies[]" value="Writing" />Writing<br /> 
+<input type="checkbox" name="hobbies[]" value="Drawing" />Drawing<br /><br /> 
+Blood Group :<select name="bg" required> 
+<option value="" disabled="disabled" selected="selected" > Select Blood Group</option> 
+<option value="A+">A+</option><option value="A-">A-</option> 
+<option value="B+">B+</option><option value="B-">B-</option> 
+<option value="O+">O+</option><option value="O-">O-</option> 
+<option value="AB+">AB+</option><option value="AB-">AB-</option></select><br /><br /> 
+<input type="submit" value="Submit" /> 
+</form></body></html> 
+if($_SERVER["REQUEST_METHOD"] == "POST"){ 
+ 	echo "<strong>First Name:</strong>".$_POST['fname']. "<br>";  	echo "<strong>Last Name:</strong>".$_POST['lname']. "<br>";  	echo "<strong>Address:</strong>".$_POST['address']. "<br>";  	echo "<strong>Email:</strong>".$_POST['email']. "<br>";  	echo "<strong>Mobile:</strong>".$_POST['mobile']. "<br>";  	echo "<strong>City:</strong>".$_POST['city']. "<br>";  	echo "<strong>State:</strong>".$_POST['state']. "<br>";  	echo "<strong>Gender:</strong>".$_POST['gender']. "<br>"; 
+ 	echo "<strong>Hobbies:</strong>";  	if(isset($_POST['hobbies'])){ 
+ 	 	echo implode(",",$_POST['hobbies'])."<br>"; 
+ 	}else{ 
+ 	 	echo "No hobbies selected.<br>"; 
+ 	} 
+ 	echo "<strong>Blood Group:</strong>".$_POST['bg']. "<br>"; 
+}?> 
+</body> 
+</html> 
+ 
+ 	 
+B2
+<html > 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>Matrix Addition and Multiplication</title> 
+</head> 
+<body> 
+<h2>Matrix Addition and Multiplication</h2> 
+<form action="" method="post"> 
+Number of Rows : <input type="number" name="rows" min="1" required /><br /><br /> 
+Number of Columns : <input type="number" name="cols" min="1" required /><br /><br /> 
+<input type="submit" name="submit" value="Generate Matrices" /><br /><br /> <input type="reset" value="Reset"><br /><br /> 
+</form> <?php 
+if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+ 	$rows = $_POST["rows"];  	$cols = $_POST["cols"]; 
+ 	echo "<form action='' method='post'> 
+ 	<h3>Matrix A</h3> 
+ 	<table>"; 
+ 	for ($i = 0; $i < $rows; $i++) { 
+ 	 	echo "<tr>"; 
+ 	 	for ($j = 0; $j < $cols; $j++) { 
+ 	 	 	echo "<td><input type='number' name='m1[$i][$j]' required></td>"; 
+ 	 	} 
+ 	 	echo "</tr>"; 
+ 	} 
+ echo "</table>  <h3>Matrix B</h3> 
+ 	<table>"; 
+ 	for ($i = 0; $i < $rows; $i++) { 
+ 	 	echo "<tr>"; 
+ 	 	for ($j = 0; $j < $cols; $j++) { 
+ 	 	 	echo "<td><input type='number' name='m2[$i][$j]' required></td>"; 
+ 	 	} 
+ 	 	echo "</tr>"; 
+ 	} 
+ 	echo "</table> 
+ 	<input type='hidden' name='rows' value='$rows'> 
+ 	<input type='hidden' name='cols' value='$cols'> 
+ 	<input type='submit' name='add' value='Add Matrices'> 
+ 	<input type='submit' name='multiply' value='Multiply Matrices'> 
+ 	</form>"; 
+} 
+ 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST["multiply"]))) {  	$rows = $_POST["rows"]; 
+ 	$cols = $_POST["cols"]; 
+ 	$m1 = $_POST["m1"]; 
+ 	$m2 = $_POST["m2"];  	$result = array();  	if (isset($_POST["add"])) {  	 	for ($i = 0; $i < $rows; $i++) {  	 	 	for ($j = 0; $j < $cols; $j++) { 
+ 	 	 	 	$result[$i][$j] = $m1[$i][$j] + $m2[$i][$j]; 
+ 	 	 	} 	 
+ 	 	} 
+ 	}else{ 
+ 	 	if ($cols != count($m2)) { 
+            echo "<p style='color:red'>Error: Matrix multiplication is not possible because the number of columns in Matrix A is not equal to the number of rows in Matrix B.</p>"; 
+ 	 	}else{ 
+ 	 	 	for ($i = 0; $i < $rows; $i++) {  	 	 	 	for ($j = 0; $j < $cols; $j++) { 
+ 	 	 	 	 	$result[$i][$j] = 0;  	 	 	 	 	for ($k = 0; $k < $rows; $k++) { 
+ 	 	 	 	 	 	$result[$i][$j] += $m1[$i][$k] * $m2[$k][$j]; 
+ 	 	 	 	 	} 
+ 	 	 	 	} 
+ 	 	 	} 
+ 	 	} 
+ 	} 
+ 	echo "<h2>Result</h2>  	<table border='1'>";  	foreach ($result as $row) { 
+ 	 	echo "<tr>"; 
+ 	 	foreach ($row as $element) { 
+ 	 	 	echo "<td>$element</td>"; 
+ 	 	} 
+ 	 	echo "</tr>"; 
+ 	} 
+ 	echo "</table>"; 
+} 
+?> 
+</body> 
+</html> 	 
+
+<html ><head><title>Distance</title></head> 
+<body> 
+<h2>Distance</h2> 
+<form action="" method="post"> 
+Distance1 : <br /> 
+Feet1 : <input type="number" name="f1" required="required" /><br /> 
+Inches1 : <input type="number" name="i1" required /><br /><br /> 
+Distance2 : <br /> 
+Feet2 : <input type="number" name="f2" required="required" /><br /> 
+Inches2 : <input type="number" name="i2" required /><br /><br /> 
+<input type="submit" name="calculate" value="Calculate" /> 
+</form> <?php class DC{ 
+ 	public static function add($f1,$i1,$f2,$i2){ 
+ 	 	$feet = $f1 + $f2;  	 	$inch = $i1 + $i2;  	 	if($inch>=12){ 
+ 	 	 	$feet ++; 
+ 	 	 	$inch -=12; 
+ 	 	} 
+ 	 	return array($feet,$inch); 
+ 	} 
+ 	public static function sub($f1,$i1,$f2,$i2){ 
+ 	 	$feet = $f1 - $f2;  	 	$inch = $i1 - $i2;  	 	if($inch<0){ 
+ 	 	 	$feet --; 
+ 	 	 	$inch +=12; 
+ 	 	} 
+ 	 	return array($feet,$inch); 
+} 	} 
+if(isset($_POST["calculate"])){ 
+ 	$f1 = $_POST["f1"]; 
+ 	$i1 = $_POST["i1"]; 
+ 	$f2 = $_POST["f2"];  	$i2 = $_POST["i2"]; 
+ 	list($sfeet,$sinch) = DC::add($f1,$i1,$f2,$i2);  	list($dfeet,$dinch) = DC::sub($f1,$i1,$f2,$i2);  	echo "<strong>Results:</strong><br>";  	echo "<br>Sum: $sfeet feet $sinch inches <br>"; 
+ 	echo "<br>Difference: $dfeet feet $dinch inches "; 
+} 	?> 
+</body></html> 	 
+<?php 
+$servername="localhost"; 
+$username="root"; 
+$password=""; 
+$database="784"; 
+$conn=new mysqli($servername,$username,$password,$database); if($conn->connect_error){ 
+ 	die("Connection failed:".$conn->connect_error); 
+} 
+if($_SERVER["REQUEST_METHOD"]=="POST"){ 
+ 	$name=$_POST['name']; 
+ 	$pass=$_POST['pass']; 
+ 	$sql="SELECT * FROM Logtable WHERE name='$name' AND pass='$pass'"; 
+ 	$result=$conn->query($sql);  	if($result->num_rows==1){ 	 
+ 	 	echo "Login succesful. Welcome,$name!"; 
+ 	}else{ 
+ 	 	echo "Invalid username or password"; 
+} 
+} 
+?> 
+<html > 
+<head> 
+<title>Login Form</title> 
+</head> 
+<body> 
+<h2> Login Form </h2> 
+<form method ="post" action=""> 
+Username : <br /> 
+<input type="text" name="name" required /><br /><br /> 
+Password : <br /> 
+<input type="password" name="pass" required /><br /><br /> 
+<input type="submit" value="login" /> 
+</form> 
+</body>  
+</html> 
+<?php 
+$conn->close(); 
+?> 
+ 	 
+<?php 
+$conn=new mysqli("localhost","root","","784"); if($conn->connect_error){ 
+ 	die("Connection failed".$conn->connect_error); 
+} 
+if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['feed'])){ 
+ 	$un=$_POST["name"]; 
+ 	$email=$_POST["email"]; 
+ 	$sub=$_POST["sub"]; 
+ 	$msg=$_POST["msg"]; 
+ 	$sql="INSERT INTO Feedback(cname,email,sub,msg) VALUES('$un','$email','$sub','$msg')";  	if($conn->query($sql)==TRUE){ 
+ 	 	echo "Thank you for your feedback!"; 
+ 	}else{ 
+ 	 	echo "Error!".$sql."<br>".$conn->error; 
+ 	} 
+} 
+if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['display'])){ 
+ 	$sql="SELECT *FROM Feedback";  	$res=$conn->query($sql);  	if($res->num_rows>0){  	 	while($r=$res->fetch_assoc()){  	 	 	echo "Name : ".$r["cname"]."<br>";  	 	 	echo "Email : ".$r["email"]."<br>";  	 	 	echo "Subject : ".$r["sub"]."<br>"; 
+ 	 	 	echo "Message : ".$r["msg"]."<br>"; 
+ 	 	} 
+ 	}else{ 
+ 	 	echo "No feedback yet"; 
+ 	} 
+} 
+?> 
+<html><head> <title>Feedback form</title></head> 
+<body> 
+<h2>Contact form</h2><br /> 
+<form action="" method="post"> 
+Name : <input type="text" name="name" required /> <br /> 
+Email : <input type="email" name="email" required /> <br /> 
+Subject : <input type="text" name="sub" required /> <br /> 
+Message :<textarea name="msg" rows="4" required ></textarea><br /> 
+<input type="submit" name="feed" value="Feedback" /> 
+</form> 
+<form action="" method="post"> 
+<input type="submit" name="display" value="Display" /> 
+</form></body> 
+</html> 	 
+<html> 
+<head> 
+<title>Customer Information</title> 
+<script> 
+function toggleForm(formId) { 
+    var form = document.getElementById(formId); 
+    if (form.style.display === "none") { 
+        form.style.display = "block"; 
+    } else { 
+        form.style.display = "none"; 
+    } 
+} 
+</script> 
+</head> 
+<body> 
+ 
+<h1>Customer Information</h1> 
+<button onclick="toggleForm('addf')">Add Customer Info</button> 
+<button onclick="toggleForm('deletef')">Delete Info</button> 
+<button onclick="toggleForm('searchf')">Search Info</button> 
+<button onclick="toggleForm('sortf')">Sort Info</button> 
+<button onclick="toggleForm('displayf')">Display Info</button> 
+<br /><br /> 
+ 
+<div id="addf" style="display:none"> 
+    <h3>Add customer information</h3> 
+    <form method="post"> 
+        Customer Number: <input type="text" name="cno" required /><br /><br /> 
+        Customer Name: <input type="text" name="cname" required /><br /><br /> 
+        Item Purchased: <input type="text" name="item" required /><br /><br /> 
+        Mobile Number: <input type="text" name="mno" required maxlength="10" /><br /><br />         <input type="submit" name="addc" value="Add Customer" /> 
+    </form> 
+</div> 
+ 
+<div id="deletef" style="display:none;"> 
+    <h3>Delete Customer Records</h3> 
+    <form method="post"> 
+        Customer Number: <input type="text" name="deletecno" required /><br /><br />         <input type="submit" name="deletec" value="Delete Customer" />     </form> 
+</div> 
+ 
+<div id="searchf" style="display:none;"> 
+    <h3>Search Database</h3> 
+    <form method="post"> 
+
+        Customer Number: <input type="text" name="searchcno" required /><br /><br />         <input type="submit" name="search" value="Search" /> 
+    </form> 
+</div> 
+ 
+<div id="sortf" style="display:none;"> 
+    <h3>Sort Database</h3> 
+    <form method="post"> 
+        <input type="submit" name="sort" value="Sort" /><br /><br />     </form> 
+</div> 
+ 
+<div id="displayf" style="display:none;"> 
+    <h3>Display Details</h3> 
+    <form method="post"> 
+        <input type="submit" name="displayc" value="Display" /><br /><br />     </form> 
+</div> 
+ 
+<?php 
+$conn=new mysqli("localhost","root","","784"); if ($conn->connect_error) { 
+    die("Connection Failed: " . $conn->connect_error); 
+} 
+ 
+if (isset($_POST['addc'])) { 
+    $cno = $_POST['cno']; 
+    $cname = $_POST['cname']; 
+    $item = $_POST['item'];     $mno = $_POST['mno']; 
+    if (!is_numeric($mno) || strlen($mno) != 10) { 
+        echo "Error: Mobile number must be a 10-digit numeric value."; 
+    } else { 
+        $sql = "INSERT INTO customer (cno, cname, item, mno) VALUES ('$cno', '$cname', '$item', '$mno')";         if ($conn->query($sql) === TRUE) {             echo "New record created successfully"; 
+        } else { 
+            echo "Error: " . $conn->error; 
+        } 
+    } 
+} 
+ 
+if (isset($_POST['deletec'])) {     $cno = $_POST['deletecno']; 
+    $sql = "SELECT * FROM customer WHERE cno = '$cno'"; 
+    $result = $conn->query($sql);     if ($result->num_rows > 0) { 
+        $sql = "DELETE FROM customer WHERE cno = '$cno'";         $conn->query($sql); 
+            echo "Record deleted successfully"; 
+    } else { 
+        echo "No records found"; 
+    } 
+} 
+ 
+if (isset($_POST['search']) || isset($_POST['sort']) || isset($_POST['displayc'])) {     if (isset($_POST['search'])) {         $cno = $_POST['searchcno']; 
+        $sql = "SELECT * FROM customer WHERE cno = '$cno'"; 
+    } elseif (isset($_POST['sort'])) { 
+        $sql = "SELECT * FROM customer ORDER BY cno"; 
+    } else { 
+        $sql = "SELECT * FROM customer"; 
+    } 
+    $result = $conn->query($sql);     if ($result->num_rows > 0) {         while ($row = $result->fetch_assoc()) {             echo "Customer No: " . $row["cno"] . " Customer Name: " . $row["cname"] . " Item Purchased: " . $row["item"] . " Mobile No: " . $row["mno"] . "<br>"; 
+        } 
+    } else { 
+        echo "No records found"; 
+    } 
+} 
+ 
+$conn->close(); 
+?> 
+ 
+</body> 
+</html> 
+ 	 
+B7 
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>Shopping</title> 
+</head> 
+<body> 
+<h2>Book Shopping Form</h2> 
+<form method="post"> 
+Book number: <input type="text" name="bno" required="required" /><br /><br /> 
+Book Title: <input type="text" name="btitle" required="required" /><br /><br /> 
+Price: <input type="number" name="bprice" required="required" /><br /><br /> 
+Quantity: <input type="number" name="qty" required="required" /><br /><br /> 
+Book Code: <select name="bcode" required> 
+<option value="101">101</option> 
+<option value="102">102</option> 
+<option value="103">103</option> 
+<option value="default">Others</option> 
+</select><br /><br /> 
+<input type="submit" value="Place Order" /><br /><br /> 
+</form> 
+</body> 
+</html> 
+ 
+<?php 
+$conn=new mysqli("localhost","root","","784"); if($conn->connect_error){ 
+ 	die("Connection failed".$conn->connect_error); 
+} 
+function calculate($bcode,$bprice,$qty) 
+{ 
+ 	switch($bcode) 
+ 	{ 
+ 	 	case'101':  	 	 	$dis = 0.15; 
+ 	 	 	break;  	 	case'102':  	 	 	$dis = 0.2;  	 	 	break;  	 	case'103':  	 	 	$dis = 0.25; 
+ 	 	 	break;  	 	default:  	 	 	$dis=0.05; 
+ 	} 
+ 	return $bprice * $qty * $dis; 
+} 
+//Submit book order 
+if($_SERVER["REQUEST_METHOD"]=="POST"){ 
+ 	$bno = $_POST['bno']; 
+ 	$btitle = $_POST['btitle']; 
+ 	$bprice = $_POST['bprice']; 
+ 	$qty = $_POST['qty']; 
+ 	$bcode = $_POST['bcode']; 
+ 	//calculate discount 
+ 	$tot = $bprice *$qty; 
+ 	$dis = calculate($bcode,$bprice,$qty); 
+ 	$net= $tot - $dis; 
+ 	//Insert Data 
+ 	$sql = "INSERT INTO book (bno, btitle, bprice, qty, bcode, tot, dis, net) VALUES ('$bno', '$btitle', 
+'$bprice', '$qty', '$bcode', '$tot', '$dis', '$net')"; 
+ 	if($conn->query($sql)==TRUE){  	 	echo"Order placed successfully.<br>";  	 	echo"Total Amount:$tot.<br>";  	 	echo"Discount Amount:$dis.<br>";  	 	echo"Net Amount: $net.<br>"; 
+ 	}else{ 
+ 	 	echo"Error:".$sql."<br>".$conn->error; 
+ 	} 
+} 
+$conn->close(); 
+?> 
+ 	 
+B8 
+CREATE TABLE `784`.`room` ( 
+`RoomNumber` VARCHAR( 10 ) NOT NULL , 
+`RoomType` VARCHAR( 50 ) NOT NULL , 
+`Capacity` INT( 10 ) NOT NULL , `Status` VARCHAR( 50 ) NOT NULL, 
+PRIMARY KEY ( `RoomNumber` )  
+) 
+<?php 
+$servername = "localhost"; 
+$username = "root"; 
+$password = ""; 
+$database = "784"; 
+ 
+// Create connection 
+$conn = new mysqli($servername, $username, $password, $database); 
+ 
+// Check connection if ($conn->connect_error) { 
+    die("Connection Failed: " . $conn->connect_error); 
+} 
+ 
+// Check-in process if (isset($_POST['checkin'])) {     $rno = $conn-> $_POST['rno']; 
+    $sql_check_room = "SELECT * FROM room WHERE rno = '$rno' AND status = 'Available'"; 
+    $result_check_room = $conn->query($sql_check_room); 
+ 
+    if ($result_check_room->num_rows > 0) { 
+        $sql = "UPDATE room SET status='Booked' WHERE rno = '$rno'";         if ($conn->query($sql) === TRUE) { 
+            echo "Room checked in successfully"; 
+        } else { 
+            echo "Error: " . $conn->error; 
+        } 
+    } else { 
+        echo "Room not available"; 
+    } 
+} 
+ 
+// Check-out process if (isset($_POST['checkout'])) {     $rno = $conn-> $_POST['rno']; 
+    $sql_check_room = "SELECT * FROM room WHERE rno = '$rno' AND status='Booked'"; 
+    $result_check_room = $conn->query($sql_check_room); 
+ 
+    if ($result_check_room->num_rows > 0) { 
+        $sql = "UPDATE room SET status='Available' WHERE rno = '$rno'";         if ($conn->query($sql) === TRUE) { 
+            echo "Room checked out successfully"; 
+        } else { 
+            echo "Error: " . $conn->error; 
+        } 
+    } else { 
+        echo "Cannot check-out. Room is not booked"; 
+    } 
+} 
+ 
+// Insert new room if (isset($_POST['insert'])) {     $rno = ($_POST['rno']); 
+    $rtype =($_POST['rtype']); 
+    $cap =($_POST['cap']); 
+ 
+    $sql_check_room = "SELECT * FROM room WHERE rno = '$rno'"; 
+    $result_check_room = $conn->query($sql_check_room); 
+ 
+    if ($result_check_room->num_rows > 0) { 
+        echo "Room details already inserted"; 
+    } else { 
+        $sql_insert = "INSERT INTO room (rno, rtype, cap, status) VALUES ('$rno', '$rtype', '$cap', 'Available')";         if ($conn->query($sql_insert) === TRUE) { 
+            echo "Room inserted successfully and available"; 
+        } else { 
+            echo "Error: " . $conn->error; 
+        } 
+    } 
+} 
+?> 
+ 
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="UTF-8"> 
+<title>Hotel Reservation</title> 
+</head> 
+<body> 
+<h2>Hotel Reservation</h2> 
+<form method="post"> 
+    Room Number: <input type="text" name="rno" required /><br /> 
+    <button type="submit" name="checkin">Check in</button><br /> 
+    <button type="submit" name="checkout">Check out</button><br /><br /> </form> 
+ 
+<h3>Insert Records</h3> 
+<form method="post"> 
+    Room Number: <input type="text" name="rno" required /><br />     <label>Room Type</label> 
+    <select name="rtype" required> 
+        <option value="single_semi">Single Semi</option> 
+        <option value="single_deluxe">Single Deluxe</option> 
+        <option value="double_semi">Double Semi</option> 
+        <option value="double_deluxe">Double Deluxe</option> 
+        <option value="dormitory">Dormitory</option> 
+    </select><br /> 
+    Capacity: <input type="number" name="cap" required /><br /> 
+    <button type="submit" name="insert">Insert Record</button><br /><br /> 
+</form> 
+ 
+<?php 
+// Display available rooms 
+$sql_available = "SELECT * FROM room WHERE status = 'Available'"; 
+$result_available = $conn->query($sql_available); 
+ 
+echo "<h3>Available Rooms:</h3>"; if ($result_available->num_rows > 0) {     while ($row = $result_available->fetch_assoc()) { 
+        echo "Room Number: " . $row['rno'] . "<br>"; 
+    } 
+} else { 
+    echo "No available rooms"; 
+} 
+ 
+// Display booked rooms 
+$sql_booked = "SELECT * FROM room WHERE status = 'Booked'"; 
+$result_booked = $conn->query($sql_booked); 
+ 
+echo "<h3>Booked Rooms:</h3>"; if ($result_booked->num_rows > 0) {     while ($row = $result_booked->fetch_assoc()) { 
+        echo "Room Number: " . $row['rno'] . "<br>"; 
+    } 
+} else { 
+    echo "No rooms booked"; 
+} 
+ 
+$conn->close(); 
+?> 
+</body> 
+</html> 
+ 
+A1 
+
+A1 
+
+A1 
+
+
+
+
+
+
+
+B3 
+
+B3 
+
+B3 
+
+
+
+
+
+
+
